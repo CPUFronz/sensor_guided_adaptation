@@ -1,0 +1,6 @@
+artifacts/
+data/
+models/
+notebooks/
+.idea/
+.ipynb_checkpoints/
