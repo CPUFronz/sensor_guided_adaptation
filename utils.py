@@ -158,10 +158,6 @@ def main(methods):
     opt.batchnorm = not opt.disable_batchnorm
     del opt.disable_batchnorm
 
-    # TODO: remove?
-    if opt.method == 'ft':
-        assert opt.base_run_id is not None, 'need a base_run_id from a baseline run for fine-tuning'
-
     print(f'Starting training of {opt.method}')
     methods[opt.method](opt)
 

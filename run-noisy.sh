@@ -29,5 +29,5 @@ id_array=(
 );
 
 for id in "${id_array[@]}"; do
-  python3 evaluate_additional.py $id noisy --device cpu --num_workers 8
+  python3 evaluate_additional.py $id --device cpu --num_workers 8
 done;

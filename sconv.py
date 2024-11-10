@@ -1,8 +1,6 @@
 '''
     Source: Learning Convolutions from Scratch: https://arxiv.org/pdf/2007.13657.pdf
 '''
-import time
-
 import math
 import torch
 import torch.nn as nn
@@ -259,11 +257,7 @@ class HHN_SConvB(nn.Module):
         weighted_list = [a * b for a, b in zip(param_list, factors)]
         return torch.sum(torch.stack(weighted_list), dim=0)
 
-    def forward(self, x, hyper_x, measure_time=False):
-        # added by Franz
-        if measure_time:
-            overhead_start = time.time()
-
+    def forward(self, x, hyper_x):
         hyper_output = self.hyper_stack(hyper_x)
 
         w_conv1 = self.calculate_weighted_sum(self.weight_list_conv1, hyper_output)
@@ -273,12 +267,6 @@ class HHN_SConvB(nn.Module):
         b_conv1 = self.calculate_weighted_sum(self.bias_list_conv1, hyper_output)
         b_conv2 = self.calculate_weighted_sum(self.bias_list_conv2, hyper_output)
         b_fc3 = self.calculate_weighted_sum(self.bias_list_fc3, hyper_output)
-
-        # TODO: remove measurement of overhead: it's not really correct
-        # added by Franz
-        if measure_time:
-            overhead = time.time() - overhead_start
-            inference_start = time.time()
 
         logits = F.conv2d(x, weight=w_conv1, bias=b_conv1, stride=2, padding=1)
         logits = torch.relu(logits)
@@ -299,10 +287,5 @@ class HHN_SConvB(nn.Module):
         logits = torch.relu(logits)
         logits = torch.flatten(logits, start_dim=1)
         logits = F.linear(logits, weight=w_fc3, bias=b_fc3)
-
-        # added by Franz
-        if measure_time:
-            inference_time = time.time() - inference_start
-            return logits, inference_time, overhead
 
         return logits
