@@ -19,7 +19,16 @@ The files to run the experiments are:
 
 Note, that inverse requires a trained baseline model to run, the wandb id of the trained baseline model has to be passed as argument.
 
-The accuracy of the resulting models is automatically evaluated after training, to evaluate the robustness against noisy sensors run [evaluate_noisy.py](evaluate_noisy.py) with the wandb id of the model to evaluate. To evaluate the runtime, you need ```adb``` installed and the Android phone connected. Change the wandb ids in ```id_array``` in [run-noisy.sh](run-noisy.sh) and start this Bash script.
+The accuracy of the resulting models is automatically evaluated after training. To evaluate the robustness against noisy sensors or measure the runtime, run either [run-noisy.sh](run-noisy.sh) or [run-benchmark.sh](run-benchmark.sh). Both Bash scripts call the coresponding Python scripts for evaluation ([evaluate_noisy.py](evaluate_noisy.py) and [evaluate_runtime.py](evaluate_runtime.py)), for all wandb ids. You have to adjust those ids accordingly. Please note, that you need ```adb``` installed and the Android phone connected to evaluate the runtime.
+
+## Visualization
+
+To visualize the results, run the corresponding Jupyter Notebooks:
+- [plot-capacity.ipynb](plot-capacity.ipynb)
+- [plot-header.ipynb](plot-header.ipynb)
+- [plot-main.ipynb](plot-main.ipynb)
+- [plot-noisy.ipynb](plot-noisy.ipynb)
+- [plot-runtime.ipynb](plot-runtime.ipynb)
 
 ## Data
 
